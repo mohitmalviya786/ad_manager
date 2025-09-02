@@ -1,0 +1,157 @@
+#### 📌 **App Name:**
+
+**Unified Social Media Ad Campaign Manager**
+
+---
+
+#### 🧠 **Goal:**
+
+Build a full-stack SaaS platform that allows users to **connect and manage their own ad accounts** across **Google Ads, Facebook, Instagram, and YouTube**. The app should offer a **real-time dashboard**, **campaign management**, **analytics**, **team collaboration**, and **subscription billing** using a clean, professional UI with a **blue-to-pink gradient theme**.
+
+---
+
+#### ⚙️ **Tech Stack Requirements:**
+
+* **Frontend**:
+
+  * **Next.js 14** with **TypeScript**
+  * **Tailwind CSS** for utility styling
+  * **Radix UI** for components
+* **Backend**:
+
+  * **Node.js (Express)** for APIs
+  * **Prisma ORM**
+  * **PostgreSQL**
+  * **Redis** for caching
+* **Authentication**:
+
+  * **NextAuth.js** with **JWT-based** auth
+* **Real-Time**:
+
+  * **Socket.io** for notifications and campaign updates
+* **Payments**:
+
+  * **Stripe** for subscription billing and ad spend tracking
+* **Deployment**:
+
+  * Frontend: **Vercel**
+  * Backend: **Railway** or **Render**
+  * CDN: **Cloudflare**
+
+---
+
+#### ✨ **Core Features to Build:**
+
+1. **🔗 OAuth Ad Account Connections**
+   Users connect their own:
+
+   * Google Ads
+   * Facebook Ads
+   * Instagram Ads
+   * YouTube Ads
+     ➤ Use OAuth 2.0 with secure token storage, auto-refresh, and disconnect.
+
+2. **📊 Campaign Management**
+
+   * Users can create, manage, and monitor campaigns from all connected accounts.
+   * Unified dashboard to manage all platforms from one place.
+
+3. **📈 Real-Time Analytics & Reporting**
+
+   * Track performance: impressions, clicks, conversions, spend.
+   * Visual dashboards with graphs, KPIs, and custom reports.
+
+4. **💳 Stripe-Based Subscription Billing**
+
+   * Plans:
+
+     * Starter: \$29/month
+     * Professional: \$79/month
+     * Enterprise: \$199/month
+   * Handle ad spend billing, receipts, and plan upgrades.
+
+5. **👥 Multi-User Team Collaboration**
+
+   * Role-based permissions: Admin, Manager, Analyst
+   * Invite users to manage shared ad accounts and campaigns.
+
+6. **🔔 Real-Time Notifications**
+
+   * Budget alerts
+   * Campaign errors
+   * Team invites and role changes
+
+7. **🛡️ Security Best Practices**
+
+   * JWT authentication
+   * Rate limiting
+   * Secure OAuth token encryption
+   * HTTPS, CORS, input validation
+
+---
+
+#### 🎨 **Theme & UI Design:**
+
+##### 🌈 **Primary Theme Color:**
+
+`linear-gradient(135deg, #4776bd, #e84a6c)`
+
+* Use this gradient in headers, buttons, progress bars, and key visual areas.
+* Accent colors: white (light mode) and dark gray/black (dark mode)
+
+##### 🌓 **Dark & Light Modes:**
+
+* **Light mode**: White/gray backgrounds with gradient accents
+* **Dark mode**: Deep gray backgrounds with the gradient standing out
+* Auto-detect or toggle between modes
+
+##### 🧑‍🎨 **UI Style:**
+
+* Clean, minimalist layout
+* Use **cards** for campaign views and analytics
+* Typography: Sans-serif (Inter, Poppins, or Roboto)
+* Icons should be clear and descriptive (not decorative only)
+* Sidebar layout with collapsible nav on smaller screens
+
+##### 🌊 **Animations:**
+
+* Smooth transitions for page loads and modal dialogs
+* Button hover/focus effects (slight scale/glow using the gradient)
+* Card hover effects (elevate slightly)
+* Animated loading states and form focus effects
+
+##### 📱 **Responsiveness:**
+
+* Fully mobile-first responsive
+* Adaptive layout for tablets and desktop
+* Hamburger menu for smaller screens
+
+---
+
+#### 📊 **Performance & Success Targets:**
+
+* API response: <200ms
+* Page load: <2s
+* Uptime: 99.9%
+* Scalable for 10,000+ users
+
+---
+
+#### 💰 **Revenue Model:**
+
+* Subscription-based via Stripe
+* No ad spend commissions
+* Transparent billing and invoicing
+
+---
+
+#### ✅ **Instructions for Replit:**
+
+1. Scaffold the app using **Next.js with TypeScript**, connect to **PostgreSQL** via Prisma.
+2. Build authentication with **NextAuth.js** and JWTs.
+3. Implement OAuth integrations first (Google Ads, Facebook Ads, etc.).
+4. Create real-time dashboard and analytics pages.
+5. Integrate **Stripe billing** with tiered subscriptions.
+6. Design using Tailwind with the **blue-pink gradient** as the brand style.
+7. Ensure full mobile responsiveness and real-time interaction with Socket.io.
+

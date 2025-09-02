@@ -1,0 +1,1056 @@
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdFlow - Social Media Campaign Management Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                    neon: {
+                        cyan: "var(--neon-cyan)",
+                        purple: "var(--neon-purple)",
+                        pink: "var(--neon-pink)",
+                    }
+                },
+                fontFamily: {
+                    sans: ["Inter", "var(--font-sans)"],
+                }
+            }
+        }
+    };
+    </script>
+    <style>
+        :root {
+            --radius: 0.75rem;
+            --background: hsl(254 100% 4%);
+            --foreground: hsl(300 20% 90%);
+            --card: hsl(260 30% 8%);
+            --card-foreground: hsl(300 20% 95%);
+            --primary: hsl(270 100% 70%);
+            --primary-foreground: hsl(254 100% 4%);
+            --secondary: hsl(260 30% 15%);
+            --secondary-foreground: hsl(300 20% 90%);
+            --muted: hsl(260 30% 12%);
+            --muted-foreground: hsl(300 10% 60%);
+            --accent: hsl(180 100% 50%);
+            --accent-foreground: hsl(254 100% 4%);
+            --border: hsl(260 30% 20%);
+            --input: hsl(260 30% 15%);
+            --ring: hsl(270 100% 70%);
+            --neon-cyan: hsl(180 100% 50%);
+            --neon-purple: hsl(270 100% 70%);
+            --neon-pink: hsl(320 100% 70%);
+            --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, var(--background) 0%, hsl(260 30% 8%) 100%);
+            min-height: 100vh;
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-cyan);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+        }
+
+        .neon-border {
+            border: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
+        }
+
+        .cyber-gradient {
+            background: linear-gradient(45deg, var(--card), hsl(270 50% 15%), var(--card));
+        }
+
+        .pulse-neon {
+            animation: pulse-neon 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-neon {
+            from {
+                box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 15px var(--neon-cyan);
+            }
+            to {
+                box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+            }
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 15px var(--neon-purple), 0 0 30px var(--neon-purple), 0 0 45px var(--neon-purple);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .holographic {
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                var(--neon-cyan) 50%, 
+                transparent 70%
+            );
+            background-size: 200% 200%;
+            animation: holographic 3s ease-in-out infinite;
+        }
+
+        @keyframes holographic {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="text-foreground">
+    <!-- @COMPONENT: AuthModal [handles login/register] -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-card rounded-lg neon-border p-8 w-full max-w-md mx-4">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Welcome to AdFlow</h2>
+                <p class="text-muted-foreground mt-2">Connect your future</p>
+            </div>
+            
+            <div class="flex mb-6">
+                <button id="loginTab" class="flex-1 py-2 px-4 text-center neon-border rounded-l-lg bg-primary text-primary-foreground">
+                    Login
+                </button>
+                <button id="registerTab" class="flex-1 py-2 px-4 text-center border border-border rounded-r-lg bg-secondary text-secondary-foreground">
+                    Register
+                </button>
+            </div>
+
+            <form id="authForm">
+                <div class="space-y-4">
+                    <div id="nameField" class="hidden">
+                        <input type="text" placeholder="Full Name" class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all">
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Email" class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all">
+                    </div>
+                    <div>
+                        <input type="password" placeholder="Password" class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all">
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full mt-6 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg hover-glow font-semibold">
+                    <span id="authButtonText">Login</span>
+                </button>
+            </form>
+
+            <div class="mt-6 pt-6 border-t border-border">
+                <div class="text-center text-sm text-muted-foreground mb-4">Or continue with</div>
+                <div class="flex space-x-3">
+                    <button class="flex-1 py-2 px-4 bg-secondary border border-border rounded-lg hover-glow transition-all">
+                        <i class="fab fa-google mr-2"></i>Google
+                    </button>
+                    <button class="flex-1 py-2 px-4 bg-secondary border border-border rounded-lg hover-glow transition-all">
+                        <i class="fab fa-microsoft mr-2"></i>Microsoft
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: AuthModal -->
+
+    <!-- @COMPONENT: Sidebar [navigation and account connections] -->
+    <div class="fixed left-0 top-0 h-full w-64 bg-card border-r border-border z-40">
+        <div class="p-6">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg neon-glow"></div>
+                <h1 class="text-xl font-bold gradient-text">AdFlow</h1>
+            </div>
+
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-primary/20 neon-border text-primary">
+                    <i class="fas fa-chart-line w-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover-glow transition-all">
+                    <i class="fas fa-bullhorn w-5"></i>
+                    <span>Campaigns</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover-glow transition-all">
+                    <i class="fas fa-chart-bar w-5"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover-glow transition-all">
+                    <i class="fas fa-users w-5"></i>
+                    <span>Team</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover-glow transition-all">
+                    <i class="fas fa-cog w-5"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="mt-8">
+                <h3 class="text-sm font-semibold text-muted-foreground mb-4">Connected Accounts</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-secondary">
+                        <div class="flex items-center space-x-2">
+                            <i class="fab fa-google text-accent"></i>
+                            <span class="text-sm">Google Ads</span>
+                        </div>
+                        <div class="w-2 h-2 bg-accent rounded-full pulse-neon"></div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-secondary">
+                        <div class="flex items-center space-x-2">
+                            <i class="fab fa-facebook text-accent"></i>
+                            <span class="text-sm">Facebook</span>
+                        </div>
+                        <div class="w-2 h-2 bg-accent rounded-full pulse-neon"></div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-secondary">
+                        <div class="flex items-center space-x-2">
+                            <i class="fab fa-instagram text-accent"></i>
+                            <span class="text-sm">Instagram</span>
+                        </div>
+                        <div class="w-2 h-2 bg-destructive rounded-full"></div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-secondary">
+                        <div class="flex items-center space-x-2">
+                            <i class="fab fa-youtube text-accent"></i>
+                            <span class="text-sm">YouTube</span>
+                        </div>
+                        <div class="w-2 h-2 bg-accent rounded-full pulse-neon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Sidebar -->
+
+    <!-- @COMPONENT: TopBar [user menu and notifications] -->
+    <div class="fixed top-0 left-64 right-0 h-16 bg-card/80 backdrop-blur-md border-b border-border z-30">
+        <div class="flex items-center justify-between h-full px-6">
+            <div class="flex items-center space-x-4">
+                <h2 class="text-xl font-semibold gradient-text">Campaign Dashboard</h2>
+                <div class="px-3 py-1 bg-primary/20 rounded-full text-primary text-sm neon-border">
+                    Professional Plan
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <!-- @COMPONENT: NotificationDropdown -->
+                <div class="relative">
+                    <button class="p-2 rounded-lg hover-glow transition-all relative">
+                        <i class="fas fa-bell text-xl"></i>
+                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full pulse-neon"></div>
+                    </button>
+                </div>
+                <!-- @END_COMPONENT: NotificationDropdown -->
+
+                <!-- @COMPONENT: UserDropdown -->
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-sm font-medium" data-bind="user.name">Alex Chen</div>
+                        <div class="text-xs text-muted-foreground" data-bind="user.role">Campaign Manager</div>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent neon-glow"></div>
+                </div>
+                <!-- @END_COMPONENT: UserDropdown -->
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: TopBar -->
+
+    <!-- @COMPONENT: MainContent -->
+    <div class="ml-64 pt-16 p-6">
+        <!-- @COMPONENT: StatsGrid [key performance indicators] -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- @MAP: statsCards.map(card => ( -->
+            <div class="bg-card rounded-lg neon-border p-6 hover-glow transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 rounded-lg bg-primary/20">
+                        <i class="fas fa-eye text-primary text-xl"></i>
+                    </div>
+                    <div class="text-xs bg-accent/20 text-accent px-2 py-1 rounded-full">+12.5%</div>
+                </div>
+                <div class="text-2xl font-bold neon-text" data-bind="stats.impressions">2.4M</div>
+                <div class="text-sm text-muted-foreground">Total Impressions</div>
+            </div>
+
+            <div class="bg-card rounded-lg neon-border p-6 hover-glow transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 rounded-lg bg-accent/20">
+                        <i class="fas fa-mouse-pointer text-accent text-xl"></i>
+                    </div>
+                    <div class="text-xs bg-accent/20 text-accent px-2 py-1 rounded-full">+8.2%</div>
+                </div>
+                <div class="text-2xl font-bold neon-text" data-bind="stats.clicks">156K</div>
+                <div class="text-sm text-muted-foreground">Total Clicks</div>
+            </div>
+
+            <div class="bg-card rounded-lg neon-border p-6 hover-glow transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 rounded-lg bg-primary/20">
+                        <i class="fas fa-percentage text-primary text-xl"></i>
+                    </div>
+                    <div class="text-xs bg-destructive/20 text-destructive px-2 py-1 rounded-full">-2.1%</div>
+                </div>
+                <div class="text-2xl font-bold neon-text" data-bind="stats.ctr">6.5%</div>
+                <div class="text-sm text-muted-foreground">Click-through Rate</div>
+            </div>
+
+            <div class="bg-card rounded-lg neon-border p-6 hover-glow transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 rounded-lg bg-accent/20">
+                        <i class="fas fa-dollar-sign text-accent text-xl"></i>
+                    </div>
+                    <div class="text-xs bg-accent/20 text-accent px-2 py-1 rounded-full">+15.3%</div>
+                </div>
+                <div class="text-2xl font-bold neon-text" data-bind="stats.revenue">$34.2K</div>
+                <div class="text-sm text-muted-foreground">Revenue Generated</div>
+            </div>
+            <!-- @END_MAP )) -->
+        </div>
+        <!-- @END_COMPONENT: StatsGrid -->
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- @COMPONENT: CampaignsList [active campaigns management] -->
+            <div class="lg:col-span-2">
+                <div class="bg-card rounded-lg neon-border p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold gradient-text">Active Campaigns</h3>
+                        <button class="px-4 py-2 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg hover-glow transition-all">
+                            <i class="fas fa-plus mr-2"></i>New Campaign
+                        </button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- @MAP: campaigns.map(campaign => ( -->
+                        <div class="p-4 rounded-lg cyber-gradient border border-border hover-glow transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex space-x-1">
+                                        <i class="fab fa-google text-accent"></i>
+                                        <i class="fab fa-facebook text-accent"></i>
+                                    </div>
+                                    <h4 class="font-semibold" data-bind="campaign.name">Summer Fashion Collection</h4>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-2 h-2 bg-accent rounded-full pulse-neon"></div>
+                                    <span class="text-sm text-accent">Active</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-4 gap-4 text-sm">
+                                <div>
+                                    <div class="text-muted-foreground">Budget</div>
+                                    <div class="font-semibold" data-bind="campaign.budget">$5,200</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">Spent</div>
+                                    <div class="font-semibold" data-bind="campaign.spent">$3,840</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">Impressions</div>
+                                    <div class="font-semibold" data-bind="campaign.impressions">486K</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">CTR</div>
+                                    <div class="font-semibold" data-bind="campaign.ctr">7.2%</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="flex justify-between text-xs text-muted-foreground mb-1">
+                                    <span>Budget Usage</span>
+                                    <span>74%</span>
+                                </div>
+                                <div class="w-full bg-secondary rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full" style="width: 74%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-lg cyber-gradient border border-border hover-glow transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex space-x-1">
+                                        <i class="fab fa-youtube text-accent"></i>
+                                        <i class="fab fa-instagram text-accent"></i>
+                                    </div>
+                                    <h4 class="font-semibold" data-bind="campaign.name">Tech Product Launch</h4>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-2 h-2 bg-accent rounded-full pulse-neon"></div>
+                                    <span class="text-sm text-accent">Active</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-4 gap-4 text-sm">
+                                <div>
+                                    <div class="text-muted-foreground">Budget</div>
+                                    <div class="font-semibold" data-bind="campaign.budget">$8,500</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">Spent</div>
+                                    <div class="font-semibold" data-bind="campaign.spent">$2,100</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">Impressions</div>
+                                    <div class="font-semibold" data-bind="campaign.impressions">312K</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">CTR</div>
+                                    <div class="font-semibold" data-bind="campaign.ctr">5.8%</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="flex justify-between text-xs text-muted-foreground mb-1">
+                                    <span>Budget Usage</span>
+                                    <span>25%</span>
+                                </div>
+                                <div class="w-full bg-secondary rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-lg cyber-gradient border border-border hover-glow transition-all">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex space-x-1">
+                                        <i class="fab fa-facebook text-muted-foreground"></i>
+                                        <i class="fab fa-google text-muted-foreground"></i>
+                                    </div>
+                                    <h4 class="font-semibold text-muted-foreground" data-bind="campaign.name">Holiday Sale Campaign</h4>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-2 h-2 bg-muted-foreground rounded-full"></div>
+                                    <span class="text-sm text-muted-foreground">Paused</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-4 gap-4 text-sm">
+                                <div>
+                                    <div class="text-muted-foreground">Budget</div>
+                                    <div class="font-semibold text-muted-foreground" data-bind="campaign.budget">$12,000</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">Spent</div>
+                                    <div class="font-semibold text-muted-foreground" data-bind="campaign.spent">$12,000</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">Impressions</div>
+                                    <div class="font-semibold text-muted-foreground" data-bind="campaign.impressions">1.2M</div>
+                                </div>
+                                <div>
+                                    <div class="text-muted-foreground">CTR</div>
+                                    <div class="font-semibold text-muted-foreground" data-bind="campaign.ctr">4.1%</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="flex justify-between text-xs text-muted-foreground mb-1">
+                                    <span>Budget Usage</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="w-full bg-secondary rounded-full h-2">
+                                    <div class="bg-muted-foreground h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: CampaignsList -->
+
+            <!-- @COMPONENT: RightPanel [quick actions and insights] -->
+            <div class="space-y-6">
+                <!-- @COMPONENT: QuickActions -->
+                <div class="bg-card rounded-lg neon-border p-6">
+                    <h3 class="text-lg font-semibold gradient-text mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button class="w-full p-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg hover-glow transition-all">
+                            <i class="fas fa-plus mr-2"></i>Create Campaign
+                        </button>
+                        <button class="w-full p-3 bg-secondary border border-border rounded-lg hover-glow transition-all">
+                            <i class="fas fa-link mr-2"></i>Connect Account
+                        </button>
+                        <button class="w-full p-3 bg-secondary border border-border rounded-lg hover-glow transition-all">
+                            <i class="fas fa-download mr-2"></i>Export Report
+                        </button>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: QuickActions -->
+
+                <!-- @COMPONENT: PlatformPerformance -->
+                <div class="bg-card rounded-lg neon-border p-6">
+                    <h3 class="text-lg font-semibold gradient-text mb-4">Platform Performance</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fab fa-google text-accent"></i>
+                                <span class="text-sm">Google Ads</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">$18.2K</div>
+                                <div class="text-xs text-accent">+23%</div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-secondary rounded-full h-2">
+                            <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full" style="width: 68%"></div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fab fa-facebook text-accent"></i>
+                                <span class="text-sm">Facebook Ads</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">$12.8K</div>
+                                <div class="text-xs text-accent">+15%</div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-secondary rounded-full h-2">
+                            <div class="bg-gradient-to-r from-primary to-accent h-2 rounded-full" style="width: 52%"></div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fab fa-instagram text-accent"></i>
+                                <span class="text-sm">Instagram Ads</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">$8.9K</div>
+                                <div class="text-xs text-destructive">-5%</div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-secondary rounded-full h-2">
+                            <div class="bg-gradient-to-r from-destructive to-muted-foreground h-2 rounded-full" style="width: 35%"></div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fab fa-youtube text-accent"></i>
+                                <span class="text-sm">YouTube Ads</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-semibold">$6.3K</div>
+                                <div class="text-xs text-accent">+31%</div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-secondary rounded-full h-2">
+                            <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full" style="width: 28%"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: PlatformPerformance -->
+
+                <!-- @COMPONENT: TeamActivity -->
+                <div class="bg-card rounded-lg neon-border p-6">
+                    <h3 class="text-lg font-semibold gradient-text mb-4">Team Activity</h3>
+                    <div class="space-y-3">
+                        <!-- @MAP: activities.map(activity => ( -->
+                        <div class="flex items-center space-x-3 p-2 rounded-lg bg-secondary/50">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent"></div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium" data-bind="activity.user">Sarah Miller</div>
+                                <div class="text-xs text-muted-foreground" data-bind="activity.action">Created new campaign</div>
+                            </div>
+                            <div class="text-xs text-muted-foreground" data-bind="activity.time">2m ago</div>
+                        </div>
+
+                        <div class="flex items-center space-x-3 p-2 rounded-lg bg-secondary/50">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-primary"></div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium" data-bind="activity.user">Mike Johnson</div>
+                                <div class="text-xs text-muted-foreground" data-bind="activity.action">Updated budget allocation</div>
+                            </div>
+                            <div class="text-xs text-muted-foreground" data-bind="activity.time">15m ago</div>
+                        </div>
+
+                        <div class="flex items-center space-x-3 p-2 rounded-lg bg-secondary/50">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent"></div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium" data-bind="activity.user">Emma Davis</div>
+                                <div class="text-xs text-muted-foreground" data-bind="activity.action">Generated performance report</div>
+                            </div>
+                            <div class="text-xs text-muted-foreground" data-bind="activity.time">1h ago</div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: TeamActivity -->
+            </div>
+            <!-- @END_COMPONENT: RightPanel -->
+        </div>
+
+        <!-- @COMPONENT: PerformanceChart [campaign analytics visualization] -->
+        <div class="mt-8">
+            <div class="bg-card rounded-lg neon-border p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold gradient-text">Campaign Performance</h3>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 bg-primary/20 text-primary rounded-lg neon-border text-sm">7D</button>
+                        <button class="px-3 py-1 bg-secondary text-secondary-foreground rounded-lg border border-border text-sm">30D</button>
+                        <button class="px-3 py-1 bg-secondary text-secondary-foreground rounded-lg border border-border text-sm">90D</button>
+                    </div>
+                </div>
+
+                <!-- Mock Chart Visualization -->
+                <div class="h-64 relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-lg"></div>
+                    <div class="flex items-end justify-between h-full p-4">
+                        <!-- @FUNCTIONALITY: This should implement a real chart library like Chart.js or Recharts -->
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 60%"></div>
+                            <span class="text-xs text-muted-foreground">Mon</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 45%"></div>
+                            <span class="text-xs text-muted-foreground">Tue</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 80%"></div>
+                            <span class="text-xs text-muted-foreground">Wed</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 35%"></div>
+                            <span class="text-xs text-muted-foreground">Thu</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 70%"></div>
+                            <span class="text-xs text-muted-foreground">Fri</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 55%"></div>
+                            <span class="text-xs text-muted-foreground">Sat</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-8 bg-gradient-to-t from-accent to-primary rounded-t-lg" style="height: 90%"></div>
+                            <span class="text-xs text-muted-foreground">Sun</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: PerformanceChart -->
+    </div>
+    <!-- @END_COMPONENT: MainContent -->
+
+    <!-- @COMPONENT: FloatingActionButton [quick campaign creation] -->
+    <div class="fixed bottom-6 right-6">
+        <button class="w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-full shadow-lg neon-glow hover-glow transition-all">
+            <i class="fas fa-plus text-xl text-primary-foreground"></i>
+        </button>
+    </div>
+    <!-- @END_COMPONENT: FloatingActionButton -->
+
+    <!-- @COMPONENT: SubscriptionModal [pricing plans] -->
+    <div id="subscriptionModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-card rounded-lg neon-border p-8 w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold gradient-text mb-2">Choose Your Plan</h2>
+                <p class="text-muted-foreground">Scale your campaigns with the perfect plan for your needs</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Starter Plan -->
+                <div class="bg-secondary rounded-lg border border-border p-6 hover-glow transition-all">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-accent">Starter</h3>
+                        <div class="text-3xl font-bold mt-2 neon-text">$29<span class="text-lg text-muted-foreground">/mo</span></div>
+                    </div>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Up to 5 campaigns</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>2 platform connections</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Basic analytics</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Email support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full mt-6 py-3 bg-secondary border border-border text-secondary-foreground rounded-lg hover-glow transition-all">
+                        Start Free Trial
+                    </button>
+                </div>
+
+                <!-- Professional Plan -->
+                <div class="bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg neon-border p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-accent text-accent-foreground px-3 py-1 rounded-bl-lg text-xs font-semibold">
+                        POPULAR
+                    </div>
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-primary">Professional</h3>
+                        <div class="text-3xl font-bold mt-2 gradient-text">$79<span class="text-lg text-muted-foreground">/mo</span></div>
+                    </div>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Unlimited campaigns</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>All platform connections</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Advanced analytics</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Team collaboration</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full mt-6 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg neon-glow hover-glow transition-all">
+                        Start Free Trial
+                    </button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-secondary rounded-lg border border-border p-6 hover-glow transition-all">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-primary">Enterprise</h3>
+                        <div class="text-3xl font-bold mt-2 neon-text">$199<span class="text-lg text-muted-foreground">/mo</span></div>
+                    </div>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Everything in Professional</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Custom integrations</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>White-label options</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>Dedicated account manager</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-check text-accent"></i>
+                            <span>24/7 phone support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full mt-6 py-3 bg-secondary border border-border text-secondary-foreground rounded-lg hover-glow transition-all">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button id="closeSubscriptionModal" class="px-6 py-2 bg-secondary border border-border text-secondary-foreground rounded-lg hover-glow transition-all">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: SubscriptionModal -->
+
+    <!-- @COMPONENT: CampaignModal [campaign creation form] -->
+    <div id="campaignModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-card rounded-lg neon-border p-8 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Create New Campaign</h2>
+                <button id="closeCampaignModal" class="p-2 hover-glow transition-all rounded-lg">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <form id="campaignForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Campaign Name</label>
+                    <input type="text" placeholder="Enter campaign name" class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all" data-mock="true">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Select Platforms</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="flex items-center p-3 bg-secondary rounded-lg border border-border hover-glow transition-all cursor-pointer">
+                            <input type="checkbox" class="mr-3" data-mock="true">
+                            <i class="fab fa-google text-accent mr-2"></i>
+                            <span>Google Ads</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-secondary rounded-lg border border-border hover-glow transition-all cursor-pointer">
+                            <input type="checkbox" class="mr-3" data-mock="true">
+                            <i class="fab fa-facebook text-accent mr-2"></i>
+                            <span>Facebook</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-secondary rounded-lg border border-border hover-glow transition-all cursor-pointer">
+                            <input type="checkbox" class="mr-3" data-mock="true">
+                            <i class="fab fa-instagram text-accent mr-2"></i>
+                            <span>Instagram</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-secondary rounded-lg border border-border hover-glow transition-all cursor-pointer">
+                            <input type="checkbox" class="mr-3" data-mock="true">
+                            <i class="fab fa-youtube text-accent mr-2"></i>
+                            <span>YouTube</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Daily Budget</label>
+                        <input type="number" placeholder="100" class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all" data-mock="true">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Campaign Duration</label>
+                        <select class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all" data-mock="true">
+                            <option>7 days</option>
+                            <option>14 days</option>
+                            <option>30 days</option>
+                            <option>Custom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Target Audience</label>
+                    <textarea placeholder="Describe your target audience..." rows="3" class="w-full p-3 bg-input border border-border rounded-lg focus:neon-border focus:outline-none transition-all" data-mock="true"></textarea>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button type="button" id="cancelCampaign" class="flex-1 py-3 bg-secondary border border-border text-secondary-foreground rounded-lg hover-glow transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg neon-glow hover-glow transition-all" data-event="click:handleCreateCampaign">
+                        Create Campaign
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: CampaignModal -->
+
+    <!-- @COMPONENT: NotificationToast [real-time notifications] -->
+    <div id="notificationToast" class="fixed top-20 right-6 bg-card rounded-lg neon-border p-4 shadow-lg hidden" style="z-index: 100;">
+        <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 bg-accent rounded-full pulse-neon"></div>
+            <div>
+                <div class="font-semibold text-sm" data-bind="notification.title">Campaign Update</div>
+                <div class="text-xs text-muted-foreground" data-bind="notification.message">Summer Fashion Collection performance increased by 15%</div>
+            </div>
+            <button class="ml-4 p-1 hover-glow transition-all">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: NotificationToast -->
+
+    <script>
+        (function() {
+            // Mock authentication state
+            let isAuthenticated = true; // TODO: Implement real authentication state management
+            
+            if (!isAuthenticated) {
+                document.getElementById('authModal').classList.remove('hidden');
+                document.getElementById('authModal').classList.add('flex');
+            }
+
+            // Auth modal functionality
+            const loginTab = document.getElementById('loginTab');
+            const registerTab = document.getElementById('registerTab');
+            const nameField = document.getElementById('nameField');
+            const authButtonText = document.getElementById('authButtonText');
+
+            loginTab?.addEventListener('click', function() {
+                loginTab.classList.add('bg-primary', 'text-primary-foreground', 'neon-border');
+                loginTab.classList.remove('bg-secondary', 'text-secondary-foreground', 'border-border');
+                registerTab.classList.remove('bg-primary', 'text-primary-foreground', 'neon-border');
+                registerTab.classList.add('bg-secondary', 'text-secondary-foreground', 'border-border');
+                nameField.classList.add('hidden');
+                authButtonText.textContent = 'Login';
+            });
+
+            registerTab?.addEventListener('click', function() {
+                registerTab.classList.add('bg-primary', 'text-primary-foreground', 'neon-border');
+                registerTab.classList.remove('bg-secondary', 'text-secondary-foreground', 'border-border');
+                loginTab.classList.remove('bg-primary', 'text-primary-foreground', 'neon-border');
+                loginTab.classList.add('bg-secondary', 'text-secondary-foreground', 'border-border');
+                nameField.classList.remove('hidden');
+                authButtonText.textContent = 'Register';
+            });
+
+            // Campaign modal functionality
+            const campaignButtons = document.querySelectorAll('[data-event*="Campaign"]');
+            const campaignModal = document.getElementById('campaignModal');
+            const closeCampaignModal = document.getElementById('closeCampaignModal');
+            const cancelCampaign = document.getElementById('cancelCampaign');
+
+            campaignButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    campaignModal.classList.remove('hidden');
+                    campaignModal.classList.add('flex');
+                });
+            });
+
+            [closeCampaignModal, cancelCampaign].forEach(button => {
+                button?.addEventListener('click', function() {
+                    campaignModal.classList.add('hidden');
+                    campaignModal.classList.remove('flex');
+                });
+            });
+
+            // Mock notification system
+            const notificationToast = document.getElementById('notificationToast');
+            
+            function showNotification(title, message) {
+                const titleEl = notificationToast.querySelector('[data-bind="notification.title"]');
+                const messageEl = notificationToast.querySelector('[data-bind="notification.message"]');
+                
+                if (titleEl) titleEl.textContent = title;
+                if (messageEl) messageEl.textContent = message;
+                
+                notificationToast.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    notificationToast.classList.add('hidden');
+                }, 5000);
+            }
+
+            // Mock real-time notifications
+            setInterval(() => {
+                const notifications = [
+                    { title: "Campaign Update", message: "Summer Fashion Collection CTR increased by 12%" },
+                    { title: "Budget Alert", message: "Tech Product Launch is 80% through daily budget" },
+                    { title: "Performance Milestone", message: "You've reached 1M impressions this month!" },
+                    { title: "Team Activity", message: "Sarah Miller created a new campaign" }
+                ];
+                
+                const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+                if (Math.random() > 0.7) { // 30% chance every interval
+                    showNotification(randomNotification.title, randomNotification.message);
+                }
+            }, 10000);
+
+            // Mock subscription modal
+            function showSubscriptionModal() {
+                const subscriptionModal = document.getElementById('subscriptionModal');
+                subscriptionModal.classList.remove('hidden');
+                subscriptionModal.classList.add('flex');
+            }
+
+            document.getElementById('closeSubscriptionModal')?.addEventListener('click', function() {
+                const subscriptionModal = document.getElementById('subscriptionModal');
+                subscriptionModal.classList.add('hidden');
+                subscriptionModal.classList.remove('flex');
+            });
+
+            // Add some interactive demo functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                // Show subscription modal after 3 seconds for demo
+                setTimeout(() => {
+                    if (Math.random() > 0.5) { // 50% chance for demo
+                        showSubscriptionModal();
+                    }
+                }, 3000);
+
+                // Mock campaign form submission
+                document.getElementById('campaignForm')?.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    showNotification("Campaign Created", "Your new campaign has been created successfully!");
+                    campaignModal.classList.add('hidden');
+                    campaignModal.classList.remove('flex');
+                });
+
+                // Mock auth form submission
+                document.getElementById('authForm')?.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    document.getElementById('authModal').classList.add('hidden');
+                    showNotification("Welcome!", "Successfully logged in to AdFlow");
+                });
+            });
+
+            // Enhanced hover effects for cyberpunk feel
+            document.querySelectorAll('.hover-glow').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.02)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Mock OAuth connection functionality
+            function connectOAuthAccount(platform) {
+                // TODO: Implement real OAuth flow
+                showNotification("Account Connected", `${platform} account successfully connected!`);
+                
+                // Update UI to show connected state
+                const platformElement = document.querySelector(`[data-platform="${platform}"]`);
+                if (platformElement) {
+                    const statusDot = platformElement.querySelector('.w-2.h-2');
+                    statusDot.classList.remove('bg-destructive');
+                    statusDot.classList.add('bg-accent', 'pulse-neon');
+                }
+            }
+
+            // Demo: randomly simulate OAuth connections
+            const platforms = ['google', 'facebook', 'instagram', 'youtube'];
+            platforms.forEach((platform, index) => {
+                setTimeout(() => {
+                    if (Math.random() > 0.6) {
+                        connectOAuthAccount(platform.charAt(0).toUpperCase() + platform.slice(1));
+                    }
+                }, (index + 1) * 2000);
+            });
+        })();
+    </script>
+</body>
+</html>
