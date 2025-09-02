@@ -1,0 +1,134 @@
+#### 📌 **Project Name:**
+
+**Unified Social Media Ad Campaign Manager**
+
+---
+
+#### 🧠 **Overview:**
+
+Build a SaaS platform that allows users to **connect their own ad accounts** (Google, Facebook, Instagram, YouTube) via **OAuth** and manage ad campaigns from a **centralized dashboard**. The app includes real-time analytics, multi-user collaboration, subscription billing, and an intuitive, vibrant UI.
+
+---
+
+#### ⚙️ **Tech Stack:**
+
+* **Frontend**: Next.js 14, TypeScript, Tailwind CSS, Radix UI
+* **Backend**: Node.js (Express), Prisma ORM, PostgreSQL
+* **Real-Time**: Socket.io for live updates
+* **Authentication**: JWT-based auth with NextAuth.js
+* **Caching**: Redis
+* **Infrastructure**: Vercel (frontend), Railway or Render (backend), Cloudflare CDN
+* **Payments**: Stripe integration (subscriptions + ad spend)
+
+---
+
+#### ✨ **Core Features to Build:**
+
+1. **🔐 OAuth Ad Account Connections:**
+
+   * Google Ads, Facebook, Instagram, YouTube
+   * Secure token storage + auto refresh
+   * Disconnect functionality
+
+2. **📊 Campaign Management:**
+
+   * Cross-platform campaign creation and tracking
+   * Unified dashboard with filters and search
+
+3. **📈 Analytics & Reporting:**
+
+   * Real-time performance metrics (clicks, spend, impressions)
+   * Visual reports (charts, tables)
+   * Export (CSV, PDF)
+
+4. **💳 Subscriptions & Billing:**
+
+   * Stripe setup for:
+
+     * Starter (\$29/mo)
+     * Professional (\$79/mo)
+     * Enterprise (\$199/mo)
+   * Transparent billing UI
+   * Ad spend and platform fee management
+
+5. **👥 Multi-User & Team Management:**
+
+   * Invite users to ad accounts
+   * Roles: Admin, Manager, Analyst
+
+6. **🔔 Real-Time Notifications:**
+
+   * Budget alerts
+   * Campaign errors
+   * New team invitations
+
+7. **🛡️ Security:**
+
+   * JWT + NextAuth.js
+   * Rate limiting, CORS, HTTPS, validation
+   * Encrypted OAuth tokens
+
+---
+
+#### 🎨 **Updated Design Theme:**
+
+##### 🌈 **Primary UI Gradient:**
+
+`linear-gradient(135deg, #4776bd, #e84a6c)`
+
+* This vibrant **blue-to-pink gradient** should be the **main visual element** in the app’s UI — used in headers, buttons, highlights, call-to-actions (CTAs), and loading indicators.
+* Use **white** and **neutral grays (#f7f7f7, #1a1a1a)** for backgrounds and text to contrast the vibrant gradient.
+
+##### 🌓 **Dark & Light Modes:**
+
+* Light Mode: Gradient on key elements (buttons, topbar); soft white/gray for backgrounds
+* Dark Mode: Gradient remains but toned slightly; backgrounds in deep gray/black
+* Maintain high contrast for accessibility
+
+##### ✨ **Animations & Interactions:**
+
+* Smooth hover/focus effects on all interactive elements
+* Page transitions with soft fades or slides
+* Card hover effects (lift, subtle glow)
+* Animated progress bars and loaders with the gradient applied
+
+##### 🧑‍🎨 **UI Style:**
+
+* Clean, modern, minimal — **not cluttered**
+* Use **card-based layouts** for campaigns, metrics, and reports
+* Use **icons + labels**, not icons alone (for clarity)
+* Typography: Professional, readable fonts like **Inter**, **Poppins**, or **Roboto**
+
+##### 📱 **Responsive Layout:**
+
+* Mobile-first with smooth transitions
+* Sidebar collapses to a hamburger menu on smaller screens
+* Touch-friendly UI elements
+
+---
+
+#### 📊 **Performance Goals:**
+
+* <2s page load time
+* <200ms API response
+* 99.9% uptime SLA
+
+---
+
+#### 💰 **Revenue Model:**
+
+* Tiered subscription model (Starter, Pro, Enterprise)
+* Stripe for billing
+* No hidden fees or markup on ad spend
+
+---
+
+#### ✅ **Instructions to Lovable:**
+
+* Use the tech stack provided
+* Apply the **blue-to-pink gradient** as the **core brand color**
+* Prioritize UI clarity, speed, and professional feel
+* Keep the layout clean, minimal, and visually modern
+* Build feature-first: Start with OAuth, dashboard, and billing — then add analytics and team management
+* Ensure the UI feels **polished, responsive, and enjoyable to use**
+
