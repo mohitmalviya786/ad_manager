@@ -1,223 +1,291 @@
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Check, BarChart3, Zap, Users, Shield } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { 
+  TrendingUp, 
+  Target, 
+  Zap, 
+  Users, 
+  BarChart3, 
+  Shield,
+  ArrowRight,
+  Menu,
+  X,
+  CheckCircle
+} from "lucide-react";
+import { SiGoogle, SiFacebook, SiInstagram, SiLinkedin, SiTiktok, SiYoutube } from "react-icons/si";
+import { useLocation } from "wouter";
 
 export default function Landing() {
-  const plans = [
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [_, navigate] = useLocation();
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const handleGetStarted = () => {
+    navigate('/dashboard');
+  };
+
+  const features = [
     {
-      name: "Starter",
-      price: "$29",
-      description: "Perfect for small businesses",
-      features: [
-        "Up to 10 campaigns",
-        "2 connected accounts",
-        "Basic analytics",
-        "Email support"
-      ]
+      icon: <Target className="w-8 h-8 text-blue-500" />,
+      title: "Multi-Platform Campaigns",
+      description: "Manage campaigns across Google, Facebook, Instagram, TikTok, and more from one dashboard."
     },
     {
-      name: "Professional",
-      price: "$79",
-      description: "Most popular for growing companies",
-      features: [
-        "Up to 50 campaigns",
-        "10 connected accounts",
-        "Advanced analytics",
-        "Team collaboration",
-        "Priority support"
-      ],
-      popular: true
+      icon: <BarChart3 className="w-8 h-8 text-green-500" />,
+      title: "Real-time Analytics",
+      description: "Get instant insights with comprehensive analytics and performance tracking."
     },
     {
-      name: "Enterprise",
-      price: "$199",
-      description: "For large organizations",
-      features: [
-        "Unlimited campaigns",
-        "Unlimited accounts",
-        "Custom analytics",
-        "Advanced permissions",
-        "24/7 dedicated support"
-      ]
+      icon: <Zap className="w-8 h-8 text-yellow-500" />,
+      title: "AI-Powered Optimization",
+      description: "Leverage AI to automatically optimize your campaigns for better performance."
+    },
+    {
+      icon: <Users className="w-8 h-8 text-purple-500" />,
+      title: "Team Collaboration",
+      description: "Work seamlessly with your team with role-based access and collaboration tools."
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-red-500" />,
+      title: "Secure & Reliable",
+      description: "Enterprise-grade security with 99.9% uptime guarantee."
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8 text-indigo-500" />,
+      title: "Growth Focused",
+      description: "Tools designed to scale your advertising efforts and grow your business."
     }
   ];
 
+  const platforms = [
+    { icon: <SiGoogle className="w-6 h-6" />, name: "Google Ads", color: "text-blue-600" },
+    { icon: <SiFacebook className="w-6 h-6" />, name: "Facebook", color: "text-blue-700" },
+    { icon: <SiInstagram className="w-6 h-6" />, name: "Instagram", color: "text-pink-600" },
+    { icon: <SiLinkedin className="w-6 h-6" />, name: "LinkedIn", color: "text-blue-800" },
+    { icon: <SiTiktok className="w-6 h-6" />, name: "TikTok", color: "text-black" },
+    { icon: <SiYoutube className="w-6 h-6" />, name: "YouTube", color: "text-red-600" }
+  ];
+
+  const benefits = [
+    "Save 70% time on campaign management",
+    "Increase ROI by up to 150%",
+    "Unified reporting across all platforms",
+    "AI-powered bid optimization",
+    "Advanced audience targeting",
+    "Real-time performance monitoring"
+  ];
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="container mx-auto px-6 py-20 text-center">
-          <div className="animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-6">
-              AdCampaign Pro
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Manage your social media advertising campaigns across all platforms with our sophisticated, enterprise-grade dashboard
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-primary to-accent hover:opacity-90 px-8 py-4 text-lg font-semibold hover-glow"
-                onClick={() => window.location.href = '/api/login'}
-                data-testid="button-get-started"
-              >
-                Get Started Free
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <Target className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white">AdFlow</span>
+            </div>
+
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
+              <a href="#platforms" className="text-gray-300 hover:text-white transition-colors">Platforms</a>
+              <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                Sign In
               </Button>
               <Button 
-                variant="outline" 
-                size="lg" 
-                className="px-8 py-4 text-lg font-semibold border-primary/50 hover:bg-primary/10"
-                data-testid="button-view-demo"
+                onClick={handleGetStarted}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
               >
-                View Demo
+                Get Started
+              </Button>
+            </div>
+
+            <button 
+              className="md:hidden text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-black/90 backdrop-blur-lg border-t border-white/10">
+            <div className="px-4 py-4 space-y-4">
+              <a href="#features" className="block text-gray-300 hover:text-white">Features</a>
+              <a href="#platforms" className="block text-gray-300 hover:text-white">Platforms</a>
+              <a href="#pricing" className="block text-gray-300 hover:text-white">Pricing</a>
+              <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
+                Sign In
+              </Button>
+              <Button 
+                onClick={handleGetStarted}
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-600"
+              >
+                Get Started
               </Button>
             </div>
           </div>
-        </div>
+        )}
+      </nav>
 
-        {/* Floating elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full floating-animation" style={{ animationDelay: '0s' }} />
-        <div className="absolute top-40 right-20 w-16 h-16 bg-accent/20 rounded-full floating-animation" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-primary/30 rounded-full floating-animation" style={{ animationDelay: '4s' }} />
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
+            <Badge className="mb-6 bg-blue-500/20 text-blue-300 border-blue-500/30 hover:bg-blue-500/30">
+              <Zap className="w-4 h-4 mr-2" />
+              AI-Powered Ad Management
+            </Badge>
+
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+              Unify Your
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Ad Campaigns</span>
+            </h1>
+
+            <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Manage all your social media advertising from one powerful platform. 
+              Create, optimize, and track campaigns across multiple platforms with AI-driven insights.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+              <Button 
+                size="lg"
+                onClick={handleGetStarted}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-lg px-8 py-6 rounded-xl shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              >
+                Get Started Free
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-xl"
+              >
+                Watch Demo
+              </Button>
+            </div>
+
+            {/* Platform Icons */}
+            <div className="flex justify-center items-center space-x-8 opacity-60">
+              {platforms.map((platform, index) => (
+                <div 
+                  key={platform.name}
+                  className={`${platform.color} transition-all duration-300 hover:scale-110 animate-pulse`}
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  {platform.icon}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Everything you need to scale your ads
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Powerful features designed for modern marketing teams
+      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-4">Powerful Features</h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Everything you need to manage successful ad campaigns across all major platforms
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="glass-effect border-border/50 hover-glow animate-slide-in" style={{ animationDelay: '0.1s' }}>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <BarChart3 className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Advanced Analytics</h3>
-                <p className="text-muted-foreground">Real-time insights and performance tracking across all platforms</p>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-effect border-border/50 hover-glow animate-slide-in" style={{ animationDelay: '0.2s' }}>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Zap className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Multi-Platform</h3>
-                <p className="text-muted-foreground">Connect Google Ads, Facebook, Instagram, and YouTube in one dashboard</p>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-effect border-border/50 hover-glow animate-slide-in" style={{ animationDelay: '0.3s' }}>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Team Collaboration</h3>
-                <p className="text-muted-foreground">Role-based permissions and seamless team workflow management</p>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-effect border-border/50 hover-glow animate-slide-in" style={{ animationDelay: '0.4s' }}>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">Enterprise Security</h3>
-                <p className="text-muted-foreground">OAuth 2.0 security with encrypted token storage and management</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Choose Your Plan
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Select the perfect plan for your business needs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {plans.map((plan, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
               <Card 
-                key={plan.name} 
-                className={`glass-effect border-border/50 hover-glow animate-slide-in relative ${
-                  plan.popular ? 'border-2 border-primary' : ''
-                }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                key={index}
+                className="bg-white/5 border-white/10 backdrop-blur-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
               >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-primary to-accent text-primary-foreground px-4 py-1 text-sm font-semibold rounded-full">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                <CardContent className="p-8">
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{plan.name}</h3>
-                    <div className="text-3xl font-bold text-primary mb-1">{plan.price}</div>
-                    <p className="text-muted-foreground">per month</p>
-                    <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
-                  </div>
-                  
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-foreground">
-                        <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <Button 
-                    className={`w-full py-3 font-medium transition-all duration-200 ${
-                      plan.popular 
-                        ? 'bg-gradient-to-r from-primary to-accent hover:opacity-90 hover-glow' 
-                        : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
-                    }`}
-                    onClick={() => window.location.href = '/api/login'}
-                    data-testid={`button-choose-${plan.name.toLowerCase()}`}
-                  >
-                    Choose {plan.name}
-                  </Button>
+                <CardContent className="p-6">
+                  <div className="mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
+                  <p className="text-gray-300">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="text-center mt-8">
-            <p className="text-muted-foreground">All plans include 14-day free trial • No setup fees • Cancel anytime</p>
+      {/* Benefits Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold text-white mb-6">
+                Why Choose AdFlow?
+              </h2>
+              <div className="space-y-4">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0" />
+                    <span className="text-gray-300 text-lg">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <Card className="bg-gradient-to-br from-blue-500/20 to-purple-600/20 border-white/10 backdrop-blur-lg">
+                <CardContent className="p-8">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-white mb-2">150%</div>
+                    <div className="text-gray-300 mb-4">Average ROI Increase</div>
+                    <div className="text-2xl font-bold text-white mb-2">70%</div>
+                    <div className="text-gray-300 mb-4">Time Saved</div>
+                    <div className="text-2xl font-bold text-white mb-2">99.9%</div>
+                    <div className="text-gray-300">Uptime</div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600/20 to-purple-600/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-white mb-6">
+            Ready to Transform Your Advertising?
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Join thousands of marketers who trust AdFlow to manage their campaigns
+          </p>
+          <Button 
+            size="lg"
+            onClick={handleGetStarted}
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-xl px-12 py-6 rounded-xl shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+          >
+            Start Your Free Trial
+            <ArrowRight className="w-6 h-6 ml-2" />
+          </Button>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-12 border-t border-border">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
-                <BarChart3 className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold gradient-text">AdCampaign Pro</span>
+      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <Target className="w-5 h-5 text-white" />
             </div>
-            <p className="text-muted-foreground text-sm">
-              © 2024 AdCampaign Pro. All rights reserved.
-            </p>
+            <span className="text-xl font-bold text-white">AdFlow</span>
           </div>
+          <p className="text-gray-400">
+            © 2024 AdFlow. All rights reserved. Built for modern marketers.
+          </p>
         </div>
       </footer>
     </div>
